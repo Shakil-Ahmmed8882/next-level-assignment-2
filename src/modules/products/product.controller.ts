@@ -76,7 +76,28 @@ const updateSingleProduct = async (req: Request, res: Response) => {
 } catch (error) {
       res.status(500).json({
         success: false,
-        message: "Failed to fetch data",
+        message: "Failed to update",
+        error
+      });
+
+  }
+};
+const deleteSingleProduct = async (req: Request, res: Response) => {
+  try {
+    const {productId} = req.params
+
+    const result = await productServices.deleteSingleProduct(productId);
+
+    // response
+    res.status(200).json({
+      success: true,
+      message: "Products deleted successfully!",
+      data: result,
+    });
+} catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Failed to delete",
         error
       });
 
@@ -88,6 +109,8 @@ export const productControllers = {
   createProduct,
   getAllProducts,
   getSingleProduct,
-  updateSingleProduct
+  updateSingleProduct,
+  deleteSingleProduct,
+  
 
 };
