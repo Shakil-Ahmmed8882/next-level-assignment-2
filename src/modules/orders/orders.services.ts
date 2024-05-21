@@ -11,7 +11,11 @@ const createNewOrder = async(payload:TOrders) => {
     return await Order.create(validatedData)
 }
 
+const getAllOrders = async() => {
+    return await Order.find()
+}
 
 export const orderServices = {
-    createNewOrder
+    createNewOrder,
+    getAllOrders
 }
