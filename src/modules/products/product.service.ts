@@ -10,13 +10,19 @@ const createProduct = async (payload: TProduct) => {
 };
 
 // get
-const getAllProducts = async () => {
-  return await Product.find();
-};
+// const getAllProducts = async () => {
+//   return await Product.find();
+// };
 
 // get
 const getSingleProduct = async (id: string) => {
   return await Product.findById(id);
+};
+
+
+// get 
+const searchProducts  = async (filter: any) => { 
+    return await Product.find(filter);
 };
 
 // put
@@ -37,10 +43,14 @@ const deleteSingleProduct = async (id: string) => {
 
 
 
+
+
+
 export const productServices = {
   createProduct,
-  getAllProducts,
+//   getAllProducts,
   getSingleProduct,
   updateSingleProduct,
-  deleteSingleProduct
+  deleteSingleProduct,
+  searchProducts
 };
