@@ -13,11 +13,11 @@ const createNewOrder = async (
       message: "Order created successfully!",
       data: result,
     });
-  } catch (error) {
-    res.status(500).json({
+  } catch (error:any) {
+    const statusCode = error.message.includes("Insufficient stock") || error.message.includes("Product not found") ? 400 : 500;
+    res.status(statusCode).json({
       success: false,
-      message: "Somthing went wrong",
-      error,
+      message: error.message,
     });
   }
 };
