@@ -14,7 +14,7 @@ app.use('/api/products',productRouter)
 
 
 app.get('/', (req:Request, res:Response) => {
-  res.send('Hello World! is modified')
+  res.send('Hello World! is transformed')
 })
 
 export default app
