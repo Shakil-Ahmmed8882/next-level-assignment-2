@@ -16,9 +16,9 @@ const getSingleProduct = async (id: string) => {
   return await Product.findById(id);
 };
 // Convert the id string to an ObjectId
-const updateSingleProduct = async (id: string) => {
+const updateSingleProduct = async (id: string,update:Partial<TProduct>) => {
+    
     const objectId = new mongoose.Types.ObjectId(id);
-    const update = {name:'Brand new apple🍎🍎'}
     return await Product.findOneAndUpdate({_id:objectId},update,{returnOriginal:false} );
 };
 

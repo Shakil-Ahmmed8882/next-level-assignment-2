@@ -63,8 +63,9 @@ const getSingleProduct = async (req: Request, res: Response) => {
 const updateSingleProduct = async (req: Request, res: Response) => {
   try {
     const {productId} = req.params
+    const {data} = req.body
 
-    const result = await productServices.updateSingleProduct(productId);
+    const result = await productServices.updateSingleProduct(productId,data);
 
     // response
     res.status(200).json({
