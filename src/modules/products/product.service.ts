@@ -10,11 +10,6 @@ const createProduct = async (payload: TProduct) => {
 };
 
 // get
-// const getAllProducts = async () => {
-//   return await Product.find();
-// };
-
-// get
 const getSingleProduct = async (id: string) => {
   return await Product.findById(id);
 };

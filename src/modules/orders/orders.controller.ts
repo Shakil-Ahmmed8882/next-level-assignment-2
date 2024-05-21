@@ -18,6 +18,7 @@ const createNewOrder = async (
     res.status(statusCode).json({
       success: false,
       message: error.message,
+      error,
     });
   }
 };
