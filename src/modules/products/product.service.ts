@@ -43,7 +43,6 @@ const deleteSingleProduct = async (id: string) => {
 
 export const productServices = {
   createProduct,
-//   getAllProducts,
   getSingleProduct,
   updateSingleProduct,
   deleteSingleProduct,

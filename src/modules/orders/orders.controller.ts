@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { orderServices } from "./orders.services";
+import sendResponse from "../../utils/responseHandler";
 
 const createNewOrder = async (
   req: Request,
@@ -31,24 +32,23 @@ const getAllOrders = async (
 ) => {
   try {
 
+    // search query 
     const {email} = req.query
     
+    // if email passed find specific order
+    // else all orders 
+    let filter : any = {}
     if(email){
-      const result = await orderServices.getOrdersByUserEmail(email);
-      return res.status(200).json({
-        success: true,
-        message: "Orders fetched successfully for user email!",
-        data: result,
-      });
+      filter.email = email  
     }
 
-    const result = await orderServices.getAllOrders();
-    res.status(200).json({
-      success: true,
-      message: "Orders fetched successfully ",
-      data: result,
-    });
-
+    
+    const result = await orderServices.getAllOrders(filter);
+    return await sendResponse(
+       res,
+       true,
+       "Orders fetched successfully for user email!",
+       result);
 
 
   } catch (error) {

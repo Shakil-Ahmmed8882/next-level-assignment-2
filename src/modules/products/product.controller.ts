@@ -24,12 +24,12 @@ const createProduct = async (req: Request, res: Response) => {
 const searchProducts = async (req: Request, res: Response) => {
   try {
     const { searchTerm } = req.query;
-    let filter:any = {}
-
-    if (searchTerm) {
-      filter.name = { $regex: searchTerm, $options: 'i' } 
-    }
+    let filter: any = {};
     
+    if (searchTerm) {      
+    filter.name = {$regex: searchTerm,$options:'i'}
+}
+
     // Perform regular search if searchTerm does not exist
     const result = await productServices.searchProducts(filter);
     return res.status(200).json({
@@ -111,7 +111,6 @@ const deleteSingleProduct = async (req: Request, res: Response) => {
 
 export const productControllers = {
   createProduct,
-  //   getAllProducts,
   getSingleProduct,
   updateSingleProduct,
   deleteSingleProduct,

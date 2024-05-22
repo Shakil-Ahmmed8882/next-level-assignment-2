@@ -46,16 +46,8 @@ const createNewOrder = async (payload: TOrders) => {
 };
 
 
-
-
-
-
-
-const getAllOrders = async() => {
-    return await Order.find()
-}
-const getOrdersByUserEmail = async(email:any) => {
-    return await Order.findOne({email})
+const getAllOrders = async(filter:any) => {
+    return await Order.find(filter)
 }
 
 
@@ -64,5 +56,4 @@ const getOrdersByUserEmail = async(email:any) => {
 export const orderServices = {
     createNewOrder,
     getAllOrders,
-    getOrdersByUserEmail
 }
