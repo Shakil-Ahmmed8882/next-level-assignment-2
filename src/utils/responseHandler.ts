@@ -1,4 +1,5 @@
 import { Response } from "express";
+import mongoose from "mongoose";
 
 // utils/responseHandler.js
 const sendResponse = async(res:Response, success:boolean, message:string, data:any) => {
@@ -8,6 +9,21 @@ const sendResponse = async(res:Response, success:boolean, message:string, data:a
       data,
     });
   };
+
+
+
+
+  const validateObjectId = (id: string) => {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      const error = new Error(`Invalid ID format: ${id}`);
+      error.name = 'ValidationError';
+      throw error;
+    }
+  };
   
-  export default sendResponse;
+  export const utils = {
+    sendResponse,
+    validateObjectId
+
+}
   

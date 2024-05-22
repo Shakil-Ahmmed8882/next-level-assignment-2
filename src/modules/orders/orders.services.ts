@@ -5,13 +5,16 @@ import { TOrders } from "./orders.interface";
 import { Order } from "./orders.model";
 import mongoose from "mongoose";
 import { Product } from "../products/product.model";
+import { utils } from "../../utils/responseHandler";
 
 
 const createNewOrder = async (payload: TOrders) => {
     // Validate the order payload
     const validatedData = ZodOrderSchema.parse(payload);
-    
+
+    // get product id and validate it, is it valid
     const id = validatedData.productId;
+    utils.validateObjectId(id)
     const objectId = new mongoose.Types.ObjectId(id);
 
     // Finding the product by ID in DB
