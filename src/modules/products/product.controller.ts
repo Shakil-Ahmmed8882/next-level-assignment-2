@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { productServices } from "./product.service";
+import { utils } from "../../utils";
 
 const createProduct = async (req: Request, res: Response,next:NextFunction) => {
   try {
@@ -34,11 +35,9 @@ const searchProducts = async (req: Request, res: Response,next:NextFunction) => 
 
     // Perform regular search if searchTerm does not exist
     const result = await productServices.searchProducts(filter);
-    return res.status(200).json({
-      success: true,
-      message: "Products fetched successfully!",
-      data: result,
-    });
+
+    utils.sendResponse(res,"Products fetched successfully.",result)
+
   } catch (error: any) {
     next(error)
   }
@@ -47,7 +46,7 @@ const searchProducts = async (req: Request, res: Response,next:NextFunction) => 
 const getSingleProduct = async (req: Request, res: Response,next:NextFunction) => {
   try {
     const { productId } = req.params;
-
+    utils.validateObjectId(productId)
     const result = await productServices.getSingleProduct(productId);
 
     // response

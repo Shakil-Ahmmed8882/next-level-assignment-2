@@ -40,13 +40,8 @@ const getAllOrders = async (
       filter.email = email  
     }
 
-    
     const result = await orderServices.getAllOrders(filter);
-    return await utils.sendResponse(
-       res,
-       true,
-       "Orders fetched successfully for user email!",
-       result);
+    utils.sendResponse(res,"Successfully fetched order",result)
 
 
   } catch (error) {

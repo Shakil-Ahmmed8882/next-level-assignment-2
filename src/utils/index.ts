@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
-import { CustomError } from "./index.interface";
+
 
 const RouteNotFoundError = (req: Request, res: Response) => {
   res.status(404).send({
@@ -23,12 +23,11 @@ function errorHandler(err: any, req: Request, res: Response, next: NextFunction)
 
 const sendResponse = async (
   res: Response,
-  success: boolean,
   message: string,
   data: any
 ) => {
   res.status(200).json({
-    success,
+    success:true,
     message,
     data,
   });
