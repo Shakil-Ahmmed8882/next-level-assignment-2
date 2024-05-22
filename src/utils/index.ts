@@ -1,5 +1,6 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
+import { CustomError } from "./index.interface";
 
 const RouteNotFoundError = (req: Request, res: Response) => {
   res.status(404).send({
@@ -8,13 +9,17 @@ const RouteNotFoundError = (req: Request, res: Response) => {
   });
 };
 
-function errorHandler(err: any, req: Request, res: Response) {
+
+
+
+function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
   res.status(err.statusCode || 500).send({
     success: false,
     message: err.message || "Internal Server Error",
     error: err,
   });
 }
+
 
 const sendResponse = async (
   res: Response,

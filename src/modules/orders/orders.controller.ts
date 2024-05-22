@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { orderServices } from "./orders.services";
 import { utils } from "../../utils";
+import { CustomError } from "../../utils/index.interface";
 
 
 
@@ -16,7 +17,7 @@ const createNewOrder = async (
       message: "Order created successfully!",
       data: result,
     });
-  } catch (error:any) {
+  } catch (error) {
     next(error)
   }
 };

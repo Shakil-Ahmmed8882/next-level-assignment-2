@@ -12,15 +12,38 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("./app"));
+exports.utils = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
-const config_1 = __importDefault(require("./config"));
-function main() {
-    return __awaiter(this, void 0, void 0, function* () {
-        yield mongoose_1.default.connect(config_1.default.database_url);
-        app_1.default.listen(config_1.default.port, () => {
-            console.log(`Example app listening on port ${config_1.default.port}`);
-        });
+const RouteNotFoundError = (req, res) => {
+    res.status(404).send({
+        success: false,
+        message: "Route not found",
+    });
+};
+function errorHandler(err, req, res, next) {
+    res.status(err.statusCode || 500).send({
+        success: false,
+        message: err.message || "Internal Server Error",
+        error: err,
     });
 }
-main();
+const sendResponse = (res, success, message, data) => __awaiter(void 0, void 0, void 0, function* () {
+    res.status(200).json({
+        success,
+        message,
+        data,
+    });
+});
+const validateObjectId = (id) => {
+    if (!mongoose_1.default.Types.ObjectId.isValid(id)) {
+        const error = new Error(`Invalid ID format: ${id}`);
+        error.name = "ValidationError";
+        throw error;
+    }
+};
+exports.utils = {
+    RouteNotFoundError,
+    errorHandler,
+    sendResponse,
+    validateObjectId,
+};

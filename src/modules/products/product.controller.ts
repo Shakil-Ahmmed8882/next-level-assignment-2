@@ -81,7 +81,7 @@ const deleteSingleProduct = async (req: Request, res: Response,next:NextFunction
   try {
     const { productId } = req.params;
 
-    const result = await productServices.deleteSingleProduct(productId);
+    await productServices.deleteSingleProduct(productId);
 
     // response
     res.status(200).json({
