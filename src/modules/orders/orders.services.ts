@@ -5,7 +5,8 @@ import { TOrders } from "./orders.interface";
 import { Order } from "./orders.model";
 import mongoose from "mongoose";
 import { Product } from "../products/product.model";
-import { utils } from "../../utils/responseHandler";
+import { utils } from "../../utils";
+
 
 
 const createNewOrder = async (payload: TOrders) => {
@@ -19,14 +20,14 @@ const createNewOrder = async (payload: TOrders) => {
 
     // Finding the product by ID in DB
     const product = await Product.findOne({ _id: objectId },{inventory:1});
-    if (!product) throw new Error("Product not found (404)");
+    if (!product) throw new Error("Order not found (404)");
 
 
     const productQuantity = product.inventory.quantity
     const orderQuantity = validatedData.quantity
 
     // if user orders more than available products
-    if(orderQuantity > productQuantity) throw new Error("Oops! Insufficient stock");
+    if(orderQuantity > productQuantity) throw new Error("Oops! Insufficient quantity available in inventory");
 
 
     // Reducing product quanity by order quantity

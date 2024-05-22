@@ -1,27 +1,23 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { productServices } from "./product.service";
-import { string } from "zod";
 
-const createProduct = async (req: Request, res: Response) => {
+const createProduct = async (req: Request, res: Response,next:NextFunction) => {
   try {
     const result = await productServices.createProduct(req.body);
 
-    // response
+    // response 
     res.status(200).json({
       success: true,
       message: "Product created successfully!",
       data: result,
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Something went wrong",
-      error,
-    });
-  }
+    next(error)
+    }
+  
 };
 
-const searchProducts = async (req: Request, res: Response) => {
+const searchProducts = async (req: Request, res: Response,next:NextFunction) => {
   try {
     const { searchTerm } = req.query;
     let filter : any = {}
@@ -44,16 +40,11 @@ const searchProducts = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error: any) {
-    console.error("Error fetching products:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Failed to fetch products",
-      error: error.message,
-    });
+    next(error)
   }
 };
 
-const getSingleProduct = async (req: Request, res: Response) => {
+const getSingleProduct = async (req: Request, res: Response,next:NextFunction) => {
   try {
     const { productId } = req.params;
 
@@ -66,14 +57,10 @@ const getSingleProduct = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Failed to fetch data",
-      error,
-    });
+    next(error)
   }
 };
-const updateSingleProduct = async (req: Request, res: Response) => {
+const updateSingleProduct = async (req: Request, res: Response,next:NextFunction) => {
   try {
     const { productId } = req.params;
     const { data } = req.body;
@@ -87,14 +74,10 @@ const updateSingleProduct = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Failed to update",
-      error,
-    });
+    next(error)
   }
 };
-const deleteSingleProduct = async (req: Request, res: Response) => {
+const deleteSingleProduct = async (req: Request, res: Response,next:NextFunction) => {
   try {
     const { productId } = req.params;
 
@@ -107,12 +90,9 @@ const deleteSingleProduct = async (req: Request, res: Response) => {
       data: null,
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Failed to delete",
-      error,
-    });
+    next(error)
   }
+  
 };
 
 export const productControllers = {

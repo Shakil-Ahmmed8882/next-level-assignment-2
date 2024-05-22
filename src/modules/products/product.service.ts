@@ -2,11 +2,17 @@ import mongoose from "mongoose";
 import { TProduct } from "./product.interface";
 import { Product } from "./product.model";
 import ZodProductSchema from "./product.zod.validation";
+import { utils } from "../../utils";
+
 
 // post
 const createProduct = async (payload: TProduct) => {
   const validatedData = ZodProductSchema.parse(payload);
-  return await Product.create(validatedData);
+  const result =  await Product.create(validatedData);
+
+  if(!result) throw Error('Opps!! Failed to add a product')
+
+  return result
 };
 
 // get
@@ -17,13 +23,21 @@ const getSingleProduct = async (id: string) => {
 
 // get 
 const searchProducts  = async (filter: any) => { 
-    return await Product.find(filter);
+    const result =  await Product.find(filter);
+    if(!result) throw Error('Failed to fetch data')
+    return result
 };
 
 // put
 const updateSingleProduct = async (id: string,update:Partial<TProduct>) => { 
+
+  // is valid id
+  utils.validateObjectId(id)
     const objectId = new mongoose.Types.ObjectId(id);
-    return await Product.findOneAndUpdate({_id:objectId},update,{returnOriginal:false} );
+
+    const result =  await Product.findOneAndUpdate({_id:objectId},update,{returnOriginal:false} );
+    if(!result) throw Error('Failed to update')
+    return result
 };
 
 

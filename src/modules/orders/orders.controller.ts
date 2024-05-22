@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { orderServices } from "./orders.services";
-import { utils } from "../../utils/responseHandler";
+import { utils } from "../../utils";
+
+
 
 const createNewOrder = async (
   req: Request,
@@ -15,12 +17,7 @@ const createNewOrder = async (
       data: result,
     });
   } catch (error:any) {
-    const statusCode = error.message.includes("Insufficient stock") || error.message.includes("Product not found") ? 400 : 500;
-    res.status(statusCode).json({
-      success: false,
-      message: error.message,
-      error,
-    });
+    next(error)
   }
 };
 
@@ -37,7 +34,7 @@ const getAllOrders = async (
 
     // if email passed find specific order
     // else all orders 
-    let filter : any = {}
+    const filter : any = {}
     if(email){
       filter.email = email  
     }
@@ -52,11 +49,7 @@ const getAllOrders = async (
 
 
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "something went wrong",
-      error
-    });
+    next(error)
   }
 };
 
