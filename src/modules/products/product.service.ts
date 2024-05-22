@@ -38,7 +38,14 @@ const updateSingleProduct = async (id: string, update: Partial<TProduct>) => {
   const result = await Product.findOneAndUpdate({ _id: objectId }, update, {
     returnOriginal: false,
   });
-  if (!result) throw Error("Failed to update");
+  // Check if the update was successful
+
+  if(result === null) throw new Error('Opps! order was not updated')
+
+  if (result && update.name && result.name !== update.name) {
+    throw new Error("Failed to update the product name");
+  }
+
   return result;
 };
 

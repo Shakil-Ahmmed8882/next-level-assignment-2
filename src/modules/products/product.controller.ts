@@ -65,13 +65,8 @@ const updateSingleProduct = async (req: Request, res: Response,next:NextFunction
     const { data } = req.body;
 
     const result = await productServices.updateSingleProduct(productId, data);
-
     // response
-    res.status(200).json({
-      success: true,
-      message: "Products updated successfully!",
-      data: result,
-    });
+    utils.sendResponse(res,'Products updated successfully!',result)
   } catch (error) {
     next(error)
   }
