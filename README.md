@@ -69,18 +69,18 @@ The API will be running at http://localhost:<PORT>.
 
 ### API Endpoints
 ##### Products
-POST /api/products: Create a new product
-GET /api/products: Retrieve a list of all products
-GET /api/products/:productId: Retrieve a specific product by ID
-PUT /api/products/:productId: Update a product's information
-DELETE /api/products/:productId: Delete a product
-GET /api/products?searchTerm=<term>: Search for products by name
+POST /api/products: Create a new product </br>
+GET /api/products: Retrieve a list of all products </br>
+GET /api/products/:productId: Retrieve a specific product by ID </br>
+PUT /api/products/:productId: Update a product's information </br>
+DELETE /api/products/:productId: Delete a product </br>
+GET /api/products?searchTerm=<term>: Search for products by name </br>
 
 
 ##### Orders
-POST /api/orders: Create a new order
-GET /api/orders: Retrieve all orders
-GET /api/orders?email=<email>: Retrieve orders by user email
+POST /api/orders: Create a new order </br>
+GET /api/orders: Retrieve all orders </br>
+GET /api/orders?email=<email>: Retrieve orders by user email </br>
 Acknowledgment
 
 ### Thank you
